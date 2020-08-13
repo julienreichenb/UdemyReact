@@ -2,11 +2,13 @@ import React, { Component } from 'react'
 import Livre from '../../components/livres/Livre'
 import EditLivre from './FormModif/EditLivre'
 import FormAjout from './FormAjout/FormAjout'
+import Alert from '../../components/alert/Alert'
 
 class Livres extends Component {
     state = {
         lastId: 9,
         editingId: null,
+        alert: null,
         books: [
             {
                 id: 1,
@@ -43,7 +45,7 @@ class Livres extends Component {
         const newBooks = [...this.state.books]
         newBooks.splice(i, 1)
 
-        this.setState({books: newBooks})
+        this.setState({books: newBooks, alert: {msg: 'Livre supprimé !', type: 'danger'}})
     }
 
     handleEditBook(id) {
@@ -62,6 +64,7 @@ class Livres extends Component {
         this.setState({ 
             books: newBooks,
             editingId: null,
+            alert: {msg: 'Livre modifié !', type: 'warning'}
         })
     }
     
@@ -69,7 +72,7 @@ class Livres extends Component {
         const newBook = { id: this.state.lastId + 1, title, author, page: pages }
         const newBooks = [...this.state.books]
         newBooks.push(newBook)
-        this.setState({ books: newBooks })
+        this.setState({ books: newBooks, alert: {msg: 'Livre ajouté !', type: 'success'}})
         this.incrementId()
         this.props.closeAdding()
     }
@@ -82,6 +85,11 @@ class Livres extends Component {
     render() {
         return (
             <>
+                {this.state.alert && 
+                <Alert type={this.state.alert.type}>
+                    {this.state.alert.msg}
+                </Alert>
+                }
                 <table className="table text-center mt-4">
                     <thead>
                         <tr className="table-dark">

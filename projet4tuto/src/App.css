@@ -1,0 +1,18 @@
+h1, h2, h3, h4 {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+.site {
+    min-height: 100vh;
+    margin-bottom: -40px;
+}
+
+.site:after {
+    content: " ";
+    height: 50px;
+    display: block;
+}
+
+footer {
+    height: 40px;
+}
